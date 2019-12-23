@@ -3,42 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagination Project</title>
-    <link href="/css/materialize.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <th:block th:replace="/fragment/css.html"></th:block>
 </head>
 <body>
 <!-- Heroes Table -->
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Note</th>
-        <th>Created Date</th>
-        <th>Modified Date</th>
-        <th>Modify</th>
-        <th>Delete</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Note</th>
+            <th>Created Date</th>
+            <th>Modified Date</th>
+            <th>Modify</th>
+            <th>Delete</th>
+        </tr>
     </thead>
 
     <tbody>
-    <tr th:each="hero : ${pages}" th:object="${hero}">
-        <td th:text="*{name}"></td>
-        <td th:text="*{age}"></td>
-        <td th:text="*{note}"></td>
-        <td th:text="*{createdDate}"></td>
-        <td th:text="*{modifiedDate}"></td>
-        <!-- update Modal Trigger -->
-        <td>
-            <a href="#updateModal" class="modal-trigger" th:text="modify"
-               th:onclick="|javascript:findById(*{id})|">
-            </a>
-        </td>
-        <td>
-            <a href="#!" th:text="delete"
-               th:onclick="|javascript:deleteById(*{id}, ${pages.totalElements}, ${pages.size}, ${pages.getNumber()})|"></a>
-        </td>
-    </tr>
+        <tr th:each="hero : ${pages}" th:object="${hero}">
+            <td th:text="*{name}"></td>
+            <td th:text="*{age}"></td>
+            <td th:text="*{note}"></td>
+            <td th:text="*{createdDate}"></td>
+            <td th:text="*{modifiedDate}"></td>
+            <!--update modal trigger-->
+            <td>
+                <a href="#updateModal" class="modal-trigger" th:text="modify"
+                   th:onclick="|javascript:findById(*{id})|">
+                </a>
+            </td>
+            <td>
+                <a href="#!" th:text="delete"
+                   th:onclick="|javascript:deleteById(*{id}, ${pages.totalElements}, ${pages.size}, ${pages.getNumber()})|">
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -51,6 +51,7 @@
 
     <li th:each="page : ${#numbers.sequence(start, last)}" th:class="${page == pages.getNumber() + 1} ? 'active' ">
         <a th:href="@{/(page = ${page})}" th:text="${page}"></a></li>
+
 
     <li th:class="${pages.last} ? 'disabled'">
         <a th:href="${pages.last} ? '#' : @{/(page = ${pages.getNumber() + 2})}">
@@ -78,6 +79,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col s12">
             <div class="row">
@@ -89,6 +91,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col s12">
             <div class="row">
@@ -100,23 +103,24 @@
             </div>
         </div>
     </div>
+
     <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-        th:onclick="|javascript:save()|">Save</a>
+            th:onclick="|javascript:save()|">Save</a>
     </div>
 </div>
 
 <!-- Update Modal Structure -->
 <div id="updateModal" class="modal modal-fixed-footer">
     <div class="modal-header">
-        <h4>Update Form</h4>
+        <h4>Create Form</h4>
     </div>
     <div class="row input-field">
         <div class="col s12">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <input placeholder="" type="text" id="updateName" class="autocomplete">
+                    <input placeholder type="text" id="updateName" class="autocomplete">
                     <label for="updateName">Name</label>
                 </div>
             </div>
@@ -127,7 +131,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">date_range</i>
-                    <input placeholder="" type="text" id="updateAge" class="autocomplete">
+                    <input placeholder type="text" id="updateAge" class="autocomplete">
                     <label for="updateAge">Age</label>
                 </div>
             </div>
@@ -138,7 +142,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">edit</i>
-                    <input placeholder="" type="text" id="updateNote" class="autocomplete">
+                    <input placeholder type="text" id="updateNote" class="autocomplete">
                     <label for="updateNote">Note</label>
                 </div>
             </div>
@@ -150,8 +154,6 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="/js/materialize.js"></script>
-<script src="/js/index.js"></script>
+<th:block th:replace="/fragment/js.html"></th:block>
 </body>
 </html>
